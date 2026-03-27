@@ -1,0 +1,173 @@
+<app-navbar></app-navbar>
+
+
+<div class="page-shell">
+  <div class="top-actions">
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <h1 class="page-title">Employee Directory</h1>
+      <button type="button" class="primary-btn" (click)="openCreatePanel()">
+        <mat-icon>add</mat-icon> Add Employee
+      </button>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="form-group search-container" style="flex: 1; position: relative;">
+      <label>Search</label>
+      <div style="display: flex; gap: 8px;">
+        <input type="text" 
+               [(ngModel)]="searchTerm" 
+               (keyup.enter)="applyFilter()" 
+               placeholder="Search name, email, or phone..."
+               style="flex: 1;">
+        <button class="primary-btn search-btn" (click)="applyFilter()" style="padding: 0 15px;">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </div>
+    
+    <div class="form-group" style="min-width: 200px;">
+      <label>Department</label>
+      <select [(ngModel)]="selectedDepartmentId" (change)="onDepartmentChange()">
+        <option [value]="0">All Departments</option>
+        <option *ngFor="let dept of departments" [value]="dept.departmentId">
+          {{ dept.departmentName }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="content-layout">
+    <div class="table-card" [class.panel-open]="isPanelOpen">
+      <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+      
+      <table mat-table [dataSource]="dataSource" matSort 
+             matSortActive="hireDate" matSortDirection="desc" matSortDisableClear
+             class="employees-table">
+
+        <ng-container matColumnDef="id">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+  <td mat-cell *matCellDef="let emp" class="id-cell"> 
+    {{ emp.employeeId }} 
+  </td>
+</ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let emp"> 
+            <strong>{{ emp.firstName }} {{ emp.lastName }}</strong> 
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let emp"> {{ emp.email }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> Phone </th>
+          <td mat-cell *matCellDef="let emp"> {{ emp.phoneNumber || 'N/A' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hireDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Hire Date </th>
+          <td mat-cell *matCellDef="let emp"> {{ emp.hireDate | date:'mediumDate' }} </td>
+        </ng-container>
+
+<ng-container matColumnDef="salary">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Salary </th>
+  <td mat-cell *matCellDef="let emp"> {{ emp.salary | currency }} </td>
+</ng-container>
+
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef> Department </th>
+          <td mat-cell *matCellDef="let emp">
+            <span class="dept-badge">{{ emp.departmentName || 'Unassigned' }}</span>
+          </td>
+        </ng-container>
+
+<ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef class="actions-header"> Actions </th>
+  <td mat-cell *matCellDef="let emp" class="actions-cell">
+    <div class="action-buttons-container">
+      <button class="table-btn edit-btn" (click)="editEmployee(emp)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button class="table-btn delete-btn" (click)="deleteEmployee(emp.employeeId)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </td>
+</ng-container>
+
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> ID </th>
+
+<th mat-header-cell *matHeaderCellDef mat-sort-header="name"> Name </th>
+
+<th mat-header-cell *matHeaderCellDef mat-sort-header="hireDate"> Hire Date </th>
+
+<th mat-header-cell *matHeaderCellDef mat-sort-header="salary"> Salary </th>
+
+        <tr mat-header-row *matHeaderRowDef="['id', 'name', 'email', 'phone', 'hireDate', 'salary', 'department', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['id', 'name', 'email', 'phone', 'hireDate', 'salary', 'department', 'actions'];"></tr>
+
+        <tr *matNoDataRow>
+          <td colspan="8" style="text-align: center; padding: 40px; color: #666;">
+            No employees found matching your criteria.
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <aside class="side-panel" *ngIf="isPanelOpen">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h2>{{ editingEmployeeId ? 'Edit Employee' : 'New Employee' }}</h2>
+          <button class="icon-close-btn" (click)="cancelEdit()">×</button>
+        </div>
+
+        <div class="form-scroll">
+          <div class="form-group">
+            <label>First Name</label>
+            <input [(ngModel)]="newEmployee.firstName" type="text" placeholder="Enter first name">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input [(ngModel)]="newEmployee.lastName" type="text" placeholder="Enter last name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input [(ngModel)]="newEmployee.email" type="email" placeholder="example@diyar.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input [(ngModel)]="newEmployee.phoneNumber" type="text" placeholder="+965 ...">
+          </div>
+          <div class="form-group">
+            <label>Hire Date</label>
+            <input [(ngModel)]="newEmployee.hireDate" type="date">
+          </div>
+          <div class="form-group">
+            <label>Salary</label>
+            <input [(ngModel)]="newEmployee.salary" type="number" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label>Department</label>
+            <select [(ngModel)]="newEmployee.departmentId">
+              <option *ngFor="let dept of departments" [value]="dept.departmentId">
+                {{ dept.departmentName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="panel-actions">
+          <button class="primary-btn" (click)="save()">
+            {{ editingEmployeeId ? 'Update Employee' : 'Create Employee' }}
+          </button>
+          <button class="secondary-btn" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

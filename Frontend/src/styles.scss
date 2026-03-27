@@ -1,0 +1,74 @@
+/* 1. This must be the first line */
+@import '@angular/material/prebuilt-themes/indigo-pink.css'; 
+
+/* 2. Standard CSS variables use :root */
+:root {
+  --brand-blue: #2563eb; 
+  --brand-blue-hover: #1d4ed8;
+  --bg-color: #f4f7fe;
+}
+/* Update your primary buttons globally */
+.primary-btn, .add-btn, .mat-raised-button.mat-primary {
+  background-color: var(--brand-blue) !important;
+  color: white !important;
+}
+
+/* Update the Navbar background */
+.mat-toolbar.mat-primary {
+  background-color: var(--brand-blue) !important;
+}
+
+/* Standardize the Edit icon background */
+.edit-icon-container {
+  background-color: #eef2ff !important; /* Very light blue for the box */
+  color: var(--brand-blue) !important;   /* Brand blue for the pencil */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color); /* Note the ':' here is correct */
+}
+
+
+
+// SUCCESS SNACKBAR
+.success-snackbar {
+  background-color: #d1e7dd !important;
+  border: 1px solid #badbcc !important;
+  border-radius: 8px !important;
+
+  // This targets the text and the label for MDC components
+  .mdc-snackbar__label, .mat-mdc-snack-bar-label {
+    color: #0f5132 !important;
+    font-weight: 500 !important;
+  }
+
+  // This targets the "Close" button
+  .mat-mdc-snack-bar-actions button, .mat-simple-snack-bar-content button {
+    color: #0f5132 !important;
+  }
+}
+
+// ERROR SNACKBAR
+.error-snackbar {
+  background-color: #f8d7da !important;
+  border: 1px solid #f5c2c7 !important;
+  border-radius: 8px !important;
+
+  .mdc-snackbar__label, .mat-mdc-snack-bar-label {
+    color: #842029 !important;
+    font-weight: 500 !important;
+  }
+
+  .mat-mdc-snack-bar-actions button, .mat-simple-snack-bar-content button {
+    color: #842029 !important;
+    font-weight: bold !important;
+  }
+}
+
+/* Forces the container to respect our background (The Nuclear Option) */
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background-color: inherit !important;
+}
+

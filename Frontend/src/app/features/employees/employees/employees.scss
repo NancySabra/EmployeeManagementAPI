@@ -1,0 +1,368 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1f2937;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.page-shell {
+  padding: 28px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.top-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* Fix for the Top Header Button */
+.primary-btn {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 24px !important; // Forces horizontal width
+  min-width: 150px; // Prevents the 'tiny dot' look
+  height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    background: #1d4ed8 !important;
+  }
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+  flex-wrap: wrap;
+}
+
+.filter-bar .form-group {
+  margin-bottom: 0; // Overwrite default margin for filter bar
+}
+
+/* Content Layout (Table + Side Panel) */
+.content-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.table-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  padding: 0; // Padding 0 to let header background hit edges
+  overflow: hidden;
+}
+
+/* Table Styling */
+.employees-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    text-align: left;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  tbody td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 15px;
+    color: #1f2937;
+  }
+
+  tbody tr:hover {
+    background: #f8fbff;
+  }
+}
+
+/* Action Buttons with Borders/Backgrounds */
+.actions-cell {
+  display: flex;
+  gap: 10px;
+}
+
+.table-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.edit-btn {
+  background-color: #eef2ff !important;
+  border: 1px solid #d0d7ff !important;
+  color: #3f51b5 !important;
+}
+
+.delete-btn {
+  background-color: #fff1f2 !important;
+  border: 1px solid #fecaca !important;
+  color: #e11d48 !important;
+}
+
+/* Side Panel Fixes */
+.side-panel {
+  width: 380px;
+  min-width: 380px;
+  position: sticky;
+  top: 24px;
+}
+
+.panel-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  padding: 24px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  h2 { margin: 0; font-size: 20px; color: #0f172a; }
+  p { margin: 4px 0 0; color: #64748b; font-size: 14px; }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+
+  label {
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  input, select {
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    &:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+  }
+}
+
+/* Panel Action Buttons */
+.panel-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+
+  button {
+    flex: 1; // Both buttons take equal width
+    height: 46px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.secondary-btn {
+  background: #f1f5f9;
+  color: #475569;
+  &:hover { background: #e2e8f0; }
+}
+
+.icon-close-btn {
+  border: none;
+  background: #f1f5f9;
+  color: #64748b;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* General Utilities */
+.text-muted { color: #64748b; font-size: 13px; }
+.error-banner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Responsiveness */
+@media (max-width: 1100px) {
+  .content-layout { flex-direction: column; }
+  .side-panel { width: 100%; min-width: 100%; position: static; }
+}
+
+/* Add these specific styles to your existing employees.scss */
+
+.id-cell {
+  font-weight: 700;
+  color: #64748b;
+  width: 50px;
+}
+
+.dept-badge {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Adjust table to handle many columns */
+.employees-table {
+  min-width: 1000px; /* Forces scroll on small screens instead of squashing */
+}
+
+.form-scroll {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px;
+  
+  /* Custom scrollbar for the form */
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+}
+
+.actions-col {
+  width: 120px;
+  text-align: center;
+}
+
+
+/* Optional: Make the active sorting header bold */
+::v-deep .mat-sort-header-sorted .mat-sort-header-label {
+  font-weight: bold;
+  color: #000;
+}
+
+/* Optional: Add a slight color to the arrows so they are easy to see */
+::v-deep .mat-sort-header-arrow {
+  color: #5c6bc0 !important; 
+}
+
+/* --- ANGULAR MATERIAL TABLE & SORT OVERRIDES --- */
+:host ::ng-deep {
+  
+  /* 1. ARROW VISIBILITY & DYNAMIC COLORING */
+  
+  /* Default/Inactive State: All arrows are grey and always visible */
+  .mat-sort-header-arrow {
+    opacity: 1 !important; 
+    color: #999999 !important; /* Inactive Grey */
+    transition: color 0.2s ease-in-out;
+  }
+
+  /* STATIC POSITION: Lock unpressed arrows so they don't flip */
+  /* This ensures only the blue active arrow rotates when clicked */
+  .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+    transform: none !important; 
+    transition: none !important;
+  }
+
+  /* Active State: The currently clicked column turns Blue */
+  .mat-sort-header-sorted .mat-sort-header-arrow {
+    color: #3f51b5 !important; /* Active Blue */
+    opacity: 1 !important;
+    /* Material's internal logic will handle the flip transform here */
+  }
+
+  /* Ensure indicators are visible for the flip animation */
+  .mat-sort-header-indicator {
+    opacity: 1 !important;
+  }
+
+  /* 2. ALIGNMENT & ROW CONSISTENCY */
+  
+  .mat-mdc-row {
+    height: 60px !important; /* Force consistent row height */
+  }
+
+  .mat-mdc-cell, .mat-mdc-header-cell {
+    padding: 12px 20px !important; 
+    vertical-align: middle !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* 3. ACTIONS COLUMN ALIGNMENT */
+  
+  .mat-column-actions {
+    width: 120px !important;
+    text-align: center !important;
+  }
+
+  .action-buttons-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  /* Button sizing to prevent row stretching */
+  .table-btn {
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 8px !important;
+  }
+}

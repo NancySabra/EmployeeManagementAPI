@@ -1,0 +1,260 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1f2937;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.page-shell {
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.page-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* TABLE & LAYOUT */
+.content-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.table-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  padding: 18px;
+  overflow: hidden;
+}
+
+/* BUTTONS */
+.primary-btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* SIDE PANEL */
+.side-panel {
+  width: 360px;
+  min-width: 360px;
+  position: sticky;
+  top: 24px;
+}
+
+.panel-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #dbe3ee;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  padding: 20px;
+}
+
+/* --- ANGULAR MATERIAL OVERRIDES --- */
+:host ::ng-deep {
+  
+  /* 1. DYNAMIC ARROW COLORS */
+  
+  /* Default State: All arrows are grey and always visible */
+  .mat-sort-header-arrow {
+    opacity: 1 !important;
+    color: #999999 !important; /* Inactive Grey */
+  }
+
+  /* STATIC POSITION: Fix unpressed arrows to stay downward (or upward) */
+  /* This prevents them from flipping unless they are the active sort */
+  .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+    transform: none !important; 
+    transition: none !important;
+  }
+
+  /* Active State: The currently clicked/sorted column turns Blue */
+  .mat-sort-header-sorted .mat-sort-header-arrow {
+    color: #3f51b5 !important; /* Active Blue */
+    /* Material will handle the transform: rotate here automatically */
+  }
+
+  /* Ensure indicators are visible */
+  .mat-sort-header-indicator {
+    opacity: 1 !important;
+  }
+
+  /* 2. ALIGNMENT & SPACING FIXES */
+  .mat-mdc-row {
+    height: 60px !important;
+  }
+
+  .mat-mdc-cell, .mat-mdc-header-cell {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+    vertical-align: middle !important;
+    padding: 0 16px !important;
+  }
+
+  /* Actions Column Width & Alignment */
+  .mat-column-actions {
+    width: 120px !important;
+    text-align: center !important;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+  }
+
+  .mat-mdc-icon-button {
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px !important;
+  }
+
+  .mat-mdc-icon-button.mat-primary { background-color: #f0f7ff !important; }
+  .mat-mdc-icon-button.mat-warn { background-color: #fff1f1 !important; }
+}
+/* --- FORM LAYOUT FIXES --- */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+
+  h2 { margin: 0; font-size: 20px; color: #0f172a; }
+  p { margin: 4px 0 0; font-size: 13px; color: #64748b; }
+}
+
+.icon-close-btn {
+  background: #f1f5f9;
+  border: none;
+  font-size: 20px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column; /* Force label to be above input */
+  gap: 6px;
+  margin-bottom: 16px;
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  input, textarea {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #ffffff;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+  }
+}
+
+.panel-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+
+  .action-btn {
+    min-width: 100px;
+    flex: 1;
+  }
+}
+
+.secondary-btn {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+}
+
+.form-group {
+  display: flex !important;
+  flex-direction: column !important; 
+  align-items: flex-start !important;
+  margin-bottom: 20px !important;
+  width: 100%;
+}
+.form-group label {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.panel-message {
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.panel-success {
+  background: #ecfdf3;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+.panel-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}

@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="main-navbar">
+  <div class="nav-brand" routerLink="/employees">
+    <img src="assets/images/duc-logo.png" alt="DUC" class="nav-logo">
+    <span class="app-title">Employee Management</span>
+  </div>
+
+  <div class="nav-links">
+    <button mat-button routerLink="/departments">
+      <mat-icon>business</mat-icon> Departments
+    </button>
+    <button mat-button routerLink="/employees">
+      <mat-icon>people</mat-icon> Employees
+    </button>
+  </div>
+
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

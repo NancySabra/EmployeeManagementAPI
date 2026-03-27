@@ -1,0 +1,78 @@
+.navbar {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 12px; // Space between logo and text
+
+  .nav-logo {
+    height: 32px; // Keep it small and professional in the bar
+    width: auto;
+    background: white; // If the logo has a background, this makes it look like a badge
+    padding: 2px;
+    border-radius: 4px;
+  }
+
+  .app-title {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #475569;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.active-link {
+  background: #e0ecff;
+  color: #1d4ed8 !important;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-1px);
+}

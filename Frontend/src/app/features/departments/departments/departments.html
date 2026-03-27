@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+
+<div class="page-shell">
+  <div class="page-header-container">
+    <h1 class="page-title">Department Directory</h1>
+    <button type="button" class="primary-btn add-btn" (click)="openCreatePanel()">
+      <mat-icon style="vertical-align: middle; margin-right: 4px;">add</mat-icon> Add Department
+    </button>
+  </div>
+
+  <p *ngIf="errorMessage" class="error-banner">{{ errorMessage }}</p>
+
+  <div class="content-layout">
+    <div class="table-card">
+      <table mat-table [dataSource]="dataSource" matSort matSortDisableClear class="departments-table">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> ID </th>
+          <td mat-cell *matCellDef="let dept"> {{ dept.departmentId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="name"> Department Name </th>
+          <td mat-cell *matCellDef="let dept"> {{ dept.departmentName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let dept"> {{ dept.description || '-' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let dept">
+            <div class="action-buttons">
+              <button mat-icon-button color="primary" (click)="editDepartment(dept)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteDepartment(dept.departmentId)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <aside class="side-panel" *ngIf="isPanelOpen">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="header-text">
+            <h2>{{ editingDepartmentId ? 'Edit Department' : 'Add Department' }}</h2>
+            <p>{{ editingDepartmentId ? 'Update department details below.' : 'Create a new department record.' }}</p>
+          </div>
+          <button type="button" class="icon-close-btn" (click)="cancelEdit()">×</button>
+        </div>
+
+        <div *ngIf="panelMessage" class="panel-message" [ngClass]="{'panel-success': panelMessageType === 'success', 'panel-error': panelMessageType === 'error'}">
+          {{ panelMessage }}
+        </div>
+
+        <div class="form-group">
+          <label>Department Name</label>
+          <input [(ngModel)]="newDepartment.departmentName" type="text" placeholder="Enter department name" />
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea [(ngModel)]="newDepartment.description" rows="3" placeholder="Enter department description"></textarea>
+        </div>
+
+        <div class="panel-actions">
+          <button type="button" class="primary-btn action-btn" (click)="editingDepartmentId ? updateDepartment() : createDepartment()">
+            {{ editingDepartmentId ? 'Update' : 'Save' }}
+          </button>
+          <button type="button" class="secondary-btn" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
