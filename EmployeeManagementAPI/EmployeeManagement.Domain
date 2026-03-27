@@ -1,0 +1,6 @@
+﻿namespace EmployeeManagementAPI
+{
+    public class EmployeeManagement
+    {
+    }
+}
