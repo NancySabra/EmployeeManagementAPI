@@ -79,7 +79,7 @@ namespace EmployeeManagement.DAL.Repositories
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var sql = "DELETE FROM Departments WHERE DepartmentId = @Id";
+            var sql = "DELETE FROM Department WHERE DepartmentId = @Id";
             int rowsAffected = await _db.ExecuteAsync(sql, new { Id = id });
             return rowsAffected > 0;
         }

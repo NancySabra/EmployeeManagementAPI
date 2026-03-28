@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using EmployeeManagement.Domain.DTOs;
+﻿using EmployeeManagement.Domain.DTOs;
 using EmployeeManagement.Domain.Models;
 using EmployeeManagement.Service.Interfaces;
+using EmployeeManagement.Service.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementAPI.Controllers
 {
@@ -113,17 +114,31 @@ namespace EmployeeManagementAPI.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<ApiResponse<Employee>>> Update(int id, [FromBody] EmployeeUpdateDto dto)
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] EmployeeUpdateDto dto)
         {
-            var userIdClaim = User.FindFirst("UserId")?.Value;
-            int userId = int.Parse(userIdClaim ?? "1");
+            try
+            {
+                var userIdClaim = User.FindFirst("UserId")?.Value;
+                int userId = int.Parse(userIdClaim ?? "1");
 
-            // PASSING ALL 3: id, dto, AND userId
-            var updated = await _service.UpdateAsync(id, dto, userId);
-            return Ok(ApiResponse<Employee>.Ok(updated, "Success"));
+                var updated = await _service.UpdateAsync(id, dto, userId);
+                return Ok(ApiResponse<Employee>.Ok(updated, "Success"));
+
+            }
+            catch (Exception ex)
+            {
+                // Check if the error message contains your SQL custom error text
+                if (ex.Message.Contains("Employee email must be unique") || ex.InnerException?.Message.Contains("unique") == true)
+                {
+                    return BadRequest(new { success = false, message = "Email already exists" });
+                }
+
+                // Generic fallback for other errors
+                return StatusCode(500, new { success = false, message = "An internal error occurred" });
+            }
         }
-
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ApiResponse<object>>> Delete(int id)
         {
